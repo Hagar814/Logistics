@@ -1,0 +1,321 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-03-17 11:04:32.833529",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_8vnw",
+  "shipper",
+  "customer",
+  "shipper_address",
+  "shipper_address_",
+  "shipper_contact",
+  "shipper_contact_",
+  "column_break_zvam",
+  "consignee",
+  "company",
+  "consignee_address",
+  "consignee_address_",
+  "consignee_contact",
+  "consignee_contact_",
+  "column_break_mczy",
+  "delivery_agent",
+  "agent",
+  "agent_address",
+  "agent_address_",
+  "agent_contact",
+  "agent_contact_",
+  "section_break_dnir",
+  "quotation",
+  "column_break_ltlu",
+  "amended_from",
+  "shipment_info_tab",
+  "place_of_receipt",
+  "direction",
+  "freight_booking",
+  "pickup_date",
+  "incoterm",
+  "accounting_info",
+  "customs_clearance",
+  "column_break_sysd",
+  "place_of_delivery",
+  "main_transport_mode",
+  "freight_type",
+  "shipment_type",
+  "pickup_type",
+  "stackable",
+  "dangerous_goods",
+  "non_negotiable",
+  "column_break_bqlu",
+  "net_weight"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_8vnw",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Freight",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "shipper",
+   "fieldtype": "Heading",
+   "label": "Shipper"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "column_break_zvam",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_mczy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_dnir",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "shipper_address",
+   "fieldtype": "Link",
+   "label": "Address",
+   "options": "Address"
+  },
+  {
+   "fieldname": "shipper_address_",
+   "fieldtype": "Small Text",
+   "label": "Shipper Address"
+  },
+  {
+   "fieldname": "shipper_contact",
+   "fieldtype": "Link",
+   "label": "Contact",
+   "options": "Contact"
+  },
+  {
+   "fieldname": "shipper_contact_",
+   "fieldtype": "Small Text",
+   "label": "Shipper Contact"
+  },
+  {
+   "fieldname": "consignee",
+   "fieldtype": "Heading",
+   "label": "Consignee"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "consignee_address",
+   "fieldtype": "Link",
+   "label": "Address ",
+   "options": "Address"
+  },
+  {
+   "fieldname": "consignee_address_",
+   "fieldtype": "Small Text",
+   "label": "Consignee Address"
+  },
+  {
+   "fieldname": "consignee_contact",
+   "fieldtype": "Link",
+   "label": "Contact",
+   "options": "Contact"
+  },
+  {
+   "fieldname": "consignee_contact_",
+   "fieldtype": "Small Text",
+   "label": "Consignee Contact"
+  },
+  {
+   "fieldname": "delivery_agent",
+   "fieldtype": "Heading",
+   "label": "Delivery Agent"
+  },
+  {
+   "fieldname": "agent",
+   "fieldtype": "Link",
+   "label": "Agent",
+   "options": "Agent"
+  },
+  {
+   "fieldname": "agent_address",
+   "fieldtype": "Link",
+   "label": "Address",
+   "options": "Address"
+  },
+  {
+   "fieldname": "agent_address_",
+   "fieldtype": "Small Text",
+   "label": "Agent Address"
+  },
+  {
+   "fieldname": "agent_contact",
+   "fieldtype": "Link",
+   "label": "Contact",
+   "options": "Contact"
+  },
+  {
+   "fieldname": "agent_contact_",
+   "fieldtype": "Small Text",
+   "label": "Agent Contact"
+  },
+  {
+   "fieldname": "quotation",
+   "fieldtype": "Link",
+   "label": "Quotation",
+   "options": "Quotation"
+  },
+  {
+   "fieldname": "column_break_ltlu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "shipment_info_tab",
+   "fieldtype": "Tab Break",
+   "label": "Shipment Info"
+  },
+  {
+   "fieldname": "place_of_receipt",
+   "fieldtype": "Link",
+   "label": "Place of Receipt",
+   "options": "Address"
+  },
+  {
+   "fieldname": "direction",
+   "fieldtype": "Select",
+   "label": "Direction",
+   "options": "Import\nExport"
+  },
+  {
+   "fieldname": "freight_booking",
+   "fieldtype": "Select",
+   "label": "Freight Booking",
+   "options": "FCL\nLCL\nFTL\nLTL"
+  },
+  {
+   "fieldname": "pickup_date",
+   "fieldtype": "Date",
+   "label": "Pickup Date"
+  },
+  {
+   "fieldname": "incoterm",
+   "fieldtype": "Link",
+   "label": "Incoterm",
+   "options": "Incoterm"
+  },
+  {
+   "fieldname": "accounting_info",
+   "fieldtype": "Select",
+   "label": "Accounting Info"
+  },
+  {
+   "fieldname": "customs_clearance",
+   "fieldtype": "Link",
+   "label": "Customs Clearance",
+   "options": "Customs Clearance"
+  },
+  {
+   "fieldname": "column_break_sysd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "place_of_delivery",
+   "fieldtype": "Link",
+   "label": "Place of Delivery",
+   "options": "Address"
+  },
+  {
+   "fieldname": "main_transport_mode",
+   "fieldtype": "Select",
+   "label": "Main Transport Mode"
+  },
+  {
+   "fieldname": "freight_type",
+   "fieldtype": "Select",
+   "label": "Freight Type",
+   "options": "Sea Freight\nAir Freight\nRoad Freight"
+  },
+  {
+   "fieldname": "shipment_type",
+   "fieldtype": "Select",
+   "label": "Shipment Type",
+   "options": "Goods\nDocuments"
+  },
+  {
+   "fieldname": "pickup_type",
+   "fieldtype": "Select",
+   "label": "Pickup Type",
+   "options": "Pickup\nSelf delivery"
+  },
+  {
+   "default": "0",
+   "fieldname": "stackable",
+   "fieldtype": "Check",
+   "label": "Stackable"
+  },
+  {
+   "default": "0",
+   "fieldname": "dangerous_goods",
+   "fieldtype": "Check",
+   "label": "Dangerous Goods"
+  },
+  {
+   "default": "0",
+   "fieldname": "non_negotiable",
+   "fieldtype": "Check",
+   "label": "Non negotiable"
+  },
+  {
+   "fieldname": "column_break_bqlu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "net_weight",
+   "fieldtype": "Float",
+   "label": "Net Weight"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-03-17 13:21:29.959482",
+ "modified_by": "Administrator",
+ "module": "Logistics",
+ "name": "Freight",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
