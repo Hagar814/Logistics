@@ -1,77 +1,119 @@
-frappe.ui.form.on('Shipment', {
+frappe.ui.form.on('Freight', {
 
 	refresh(frm) {
 
 		if (!frm.is_new()) {
-            
-			if(workflow_state == "Arrived")
-            {
-			frm.add_custom_button('Create Sales Invoice', () => {
 
-				let sales_doc = frappe.model.get_new_doc('Sales Invoice');
-				sales_doc.custom_shipment = frm.doc.name;
+			let state = frm.doc.workflow_state;
 
-				frappe.set_route('Form', 'Sales Invoice', sales_doc.name);
+			if (state === "Arrived") {
+				frm.add_custom_button('Create Sales Invoice', () => {
 
-			});
-		}
-			if(workflow_state == "Arrived" || workflow_state == "Shipped" )
-            {
-			frm.add_custom_button('Create Customs Clearance', () => {
+					let sales_doc = frappe.model.get_new_doc('Sales Invoice');
+					sales_doc.custom_freight = frm.doc.name;
 
-				let customs_doc = frappe.model.get_new_doc('Customs Clearance');
-				customs_doc.shipment = frm.doc.name;
+					frappe.set_route('Form', 'Sales Invoice', sales_doc.name);
+				});
+			}
 
-				frappe.set_route('Form', 'Customs Clearance', customs_doc.name);
+			if (state === "Arrived" || state === "Shipped") {
+				frm.add_custom_button('Create Customs Clearance', () => {
 
-			});
+					let customs_doc = frappe.model.get_new_doc('Customs Clearance');
+					customs_doc.freight = frm.doc.name;
+
+					frappe.set_route('Form', 'Customs Clearance', customs_doc.name);
+				});
 			}
 		}
 
-		// 🔹 Run address logic if value exists
-		if (frm.doc.custom_address) {
-
-			erpnext.utils.get_address_display(
-				frm,
-				"custom_address",
-				"custom_agent_address",
-				false
-			);
-		}
-
-		// 🔹 Run contact logic if value exists
-		if (frm.doc.custom_contact) {
-
-			get_custom_contact_display(frm, frm.doc.custom_contact);
-		}
 	},
-onload: function(frm) {
 
-        frm.set_value('pickup_from_type', 'Customer');
-        frm.set_value('delivery_to_type', 'Company');
-        frm.set_df_property('pickup_from_type', 'options', ['Customer']);
-        frm.set_df_property('delivery_to_type', 'options', ['Company'])
-},
-	custom_address: function (frm) {
-		if (frm.doc.custom_address) {
-			erpnext.utils.get_address_display(frm, "custom_address", "custom_agent_address", false);
-		} else {
-			frm.set_value("custom_agent_address", "");
-		}
-	},
-	custom_contact(frm) {
+	// 🔹 Address & Contact triggers
+	agent_address: frm => handle_address(frm, "agent_address", "agent_address_"),
+	shipper_address: frm => handle_address(frm, "shipper_address", "shipper_address_"),
+	consignee_address: frm => handle_address(frm, "consignee_address", "consignee_address_"),
 
-		if (frm.doc.custom_contact) {
-			get_custom_contact_display(frm, frm.doc.custom_contact);
-		} else {
-			frm.set_value("custom_agent_contact", "");
-		}
+	agent_contact: frm => handle_contact(frm, "agent_contact", "agent_contact_"),
+	shipper_contact: frm => handle_contact(frm, "shipper_contact", "shipper_contact_"),
+	consignee_contact: frm => handle_contact(frm, "consignee_contact", "consignee_contact_")
 
-	}
 });
 
 
-function get_custom_contact_display(frm, contact_name) {
+// ==============================
+// 🔹 Generic Handlers
+// ==============================
+
+function set_address_and_contact(frm) {
+
+	let mappings = [
+		{ field: "agent_address", display: "agent_address_", type: "address" },
+		{ field: "shipper_address", display: "shipper_address_", type: "address" },
+		{ field: "consignee_address", display: "consignee_address_", type: "address" },
+
+		{ field: "agent_contact", display: "agent_contact_", type: "contact" },
+		{ field: "shipper_contact", display: "shipper_contact_", type: "contact" },
+		{ field: "consignee_contact", display: "consignee_contact_", type: "contact" }
+	];
+
+	mappings.forEach(row => {
+		if (frm.doc[row.field]) {
+			if (row.type === "address") {
+				handle_address(frm, row.field, row.display);
+			} else {
+				handle_contact(frm, row.field, row.display);
+			}
+		}
+	});
+}
+
+
+// 🔹 Address handler
+function handle_address(frm, source_field, target_field) {
+
+	if (frm.doc[source_field]) {
+		erpnext.utils.get_address_display(frm, source_field, target_field, false);
+
+		setTimeout(() => {
+			let val = frm.doc[target_field] || "";
+
+			let lines = val.split("<br>")
+				.map(l => l.trim())
+				.filter(l => l && l !== "Phone:" && l !== "Email:")
+				.filter((v, i, a) => a.indexOf(v) === i);
+
+			let formatted = lines.map(line => {
+				if (line.toLowerCase().includes("phone")) {
+					return line.replace("Phone:", "📞 ");
+				}
+				return line;
+			});
+
+			// ✅ Use newline instead of <br>
+			frm.set_value(target_field, formatted.join("\n"));
+
+		}, 300);
+
+	} else {
+		frm.set_value(target_field, "");
+	}
+}
+
+
+// 🔹 Contact handler
+function handle_contact(frm, source_field, target_field) {
+
+	if (frm.doc[source_field]) {
+		get_custom_contact_display(frm, frm.doc[source_field], target_field);
+	} else {
+		frm.set_value(target_field, "");
+	}
+}
+
+
+// 🔹 Contact display (dynamic for ALL fields)
+function get_custom_contact_display(frm, contact_name, target_field) {
 
 	frappe.call({
 		method: "frappe.contacts.doctype.contact.contact.get_contact_details",
@@ -81,22 +123,25 @@ function get_custom_contact_display(frm, contact_name) {
 			if (r.message) {
 
 				let d = r.message;
-				let contact_display = d.contact_display || "";
+				let parts = [];
+
+				if (d.contact_display) {
+					parts.push(d.contact_display);
+				}
 
 				if (d.contact_email) {
-					contact_display += "<br>" + d.contact_email;
+					parts.push( d.contact_email);
 				}
 
-				if (d.contact_phone) {
-					contact_display += "<br>" + d.contact_phone;
-				} else if (d.contact_mobile) {
-					contact_display += "<br>" + d.contact_mobile;
+				if (d.contact_mobile) {
+					parts.push( d.contact_mobile);
+				} else if (d.contact_phone) {
+					parts.push( d.contact_phone);
 				}
 
-				frm.set_value("custom_agent_contact", contact_display);
-
+				// ✅ newline instead of <br>
+				frm.set_value(target_field, parts.join("\n"));
 			}
 		}
 	});
-
 }

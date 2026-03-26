@@ -48,7 +48,45 @@
   "dangerous_goods",
   "non_negotiable",
   "column_break_bqlu",
-  "net_weight"
+  "net_weight",
+  "gross_weight",
+  "no_of_package",
+  "chargeable_weight",
+  "cbm",
+  "un_number",
+  "sea_freight_tab",
+  "pol",
+  "bl",
+  "mbl",
+  "column_break_juta",
+  "pod",
+  "pallets",
+  "hbl",
+  "column_break_vcwu",
+  "shipping_line",
+  "vessel",
+  "voyage",
+  "section_break_iytr",
+  "container",
+  "tab_4_tab",
+  "airport_of_depature",
+  "awb_number",
+  "column_break_drzw",
+  "airport_of_destination",
+  "mawb",
+  "column_break_uecs",
+  "air_line",
+  "hawb",
+  "road_freight_tab",
+  "place_of_taking_over",
+  "date_of_taking_over",
+  "delivery_trip",
+  "vehicle",
+  "driver",
+  "column_break_hekz",
+  "cmr",
+  "mrwb",
+  "hrwb"
  ],
  "fields": [
   {
@@ -289,13 +327,212 @@
   {
    "fieldname": "net_weight",
    "fieldtype": "Float",
-   "label": "Net Weight"
+   "label": "Net Weight (Kg)"
+  },
+  {
+   "fieldname": "gross_weight",
+   "fieldtype": "Float",
+   "label": "Gross Weight (Kg)"
+  },
+  {
+   "fieldname": "no_of_package",
+   "fieldtype": "Int",
+   "label": "No of Package"
+  },
+  {
+   "fieldname": "chargeable_weight",
+   "fieldtype": "Float",
+   "label": "Chargeable Weight"
+  },
+  {
+   "fieldname": "cbm",
+   "fieldtype": "Float",
+   "label": "CBM"
+  },
+  {
+   "fieldname": "un_number",
+   "fieldtype": "Int",
+   "label": "UN Number"
+  },
+  {
+   "depends_on": "eval:doc.custom_freight_type == 'Sea Freight'",
+   "fieldname": "sea_freight_tab",
+   "fieldtype": "Tab Break",
+   "label": "Sea Freight"
+  },
+  {
+   "fieldname": "pol",
+   "fieldtype": "Link",
+   "label": "POL",
+   "options": "Port"
+  },
+  {
+   "fieldname": "bl",
+   "fieldtype": "Int",
+   "label": "BL"
+  },
+  {
+   "fieldname": "mbl",
+   "fieldtype": "Data",
+   "label": "MBL"
+  },
+  {
+   "fieldname": "column_break_juta",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pod",
+   "fieldtype": "Link",
+   "label": "POD",
+   "options": "Port"
+  },
+  {
+   "fieldname": "pallets",
+   "fieldtype": "Select",
+   "label": "Pallets",
+   "options": "No\nYes"
+  },
+  {
+   "fieldname": "column_break_vcwu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "shipping_line",
+   "fieldtype": "Link",
+   "label": "Shipping Line",
+   "options": "Shipping Line"
+  },
+  {
+   "fieldname": "hbl",
+   "fieldtype": "Data",
+   "label": "HBL"
+  },
+  {
+   "fieldname": "vessel",
+   "fieldtype": "Data",
+   "label": "Vessel"
+  },
+  {
+   "fieldname": "voyage",
+   "fieldtype": "Data",
+   "label": "Voyage"
+  },
+  {
+   "fieldname": "section_break_iytr",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "container",
+   "fieldtype": "Table",
+   "label": "Container",
+   "options": "Container"
+  },
+  {
+   "depends_on": "eval:doc.custom_freight_type == 'Air Freight'",
+   "fieldname": "tab_4_tab",
+   "fieldtype": "Tab Break",
+   "label": "Air Freight"
+  },
+  {
+   "fieldname": "airport_of_depature",
+   "fieldtype": "Link",
+   "label": "Airport of Depature",
+   "options": "Air Port"
+  },
+  {
+   "fieldname": "awb_number",
+   "fieldtype": "Data",
+   "label": "AWB Number"
+  },
+  {
+   "fieldname": "column_break_drzw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "airport_of_destination",
+   "fieldtype": "Link",
+   "label": "Airport Of Destination",
+   "options": "Air Port"
+  },
+  {
+   "fieldname": "mawb",
+   "fieldtype": "Data",
+   "label": "MAWB"
+  },
+  {
+   "fieldname": "column_break_uecs",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "air_line",
+   "fieldtype": "Link",
+   "label": "Air Line",
+   "options": "Shipping Line"
+  },
+  {
+   "fieldname": "hawb",
+   "fieldtype": "Data",
+   "label": "HAWB"
+  },
+  {
+   "depends_on": "eval:doc.custom_freight_type == 'Road Freight'",
+   "fieldname": "road_freight_tab",
+   "fieldtype": "Tab Break",
+   "label": "Road Freight"
+  },
+  {
+   "fieldname": "place_of_taking_over",
+   "fieldtype": "Link",
+   "label": "Place of Taking Over",
+   "options": "Address"
+  },
+  {
+   "fieldname": "date_of_taking_over",
+   "fieldtype": "Datetime",
+   "label": "Date of Taking Over"
+  },
+  {
+   "fieldname": "delivery_trip",
+   "fieldtype": "Link",
+   "label": "Delivery Trip",
+   "options": "Delivery Trip"
+  },
+  {
+   "fieldname": "vehicle",
+   "fieldtype": "Link",
+   "label": "Vehicle",
+   "options": "Vehicle"
+  },
+  {
+   "fieldname": "driver",
+   "fieldtype": "Link",
+   "label": "Driver",
+   "options": "Driver"
+  },
+  {
+   "fieldname": "column_break_hekz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cmr",
+   "fieldtype": "Data",
+   "label": "CMR"
+  },
+  {
+   "fieldname": "mrwb",
+   "fieldtype": "Data",
+   "label": "MRWB"
+  },
+  {
+   "fieldname": "hrwb",
+   "fieldtype": "Data",
+   "label": "HRWB"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-03-17 13:21:29.959482",
+ "modified": "2026-03-26 15:26:51.368412",
  "modified_by": "Administrator",
  "module": "Logistics",
  "name": "Freight",
@@ -315,6 +552,7 @@
    "write": 1
   }
  ],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []

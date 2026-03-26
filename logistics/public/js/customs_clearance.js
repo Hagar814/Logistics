@@ -8,18 +8,18 @@ frappe.ui.form.on('Customs Clearance', {
     },
     on_submit(frm) {
 
-        if (!frm.doc.shipment) return;
+        if (!frm.doc.freight) return;
 
         frappe.call({
             method: "frappe.client.set_value",
             args: {
-                doctype: "Shipment",
-                name: frm.doc.shipment,
-                fieldname: "custom_customs_clearance",
+                doctype: "Freight",
+                name: frm.doc.freight,
+                fieldname: "customs_clearance",
                 value: frm.doc.total
             },
             callback: function() {
-                frappe.msgprint("Shipment updated");
+                frappe.msgprint("Freight updated");
             }
         });
 
